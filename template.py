@@ -10,10 +10,12 @@ def parse_input(file):
         pass
 
 def part_a(file):
-    print(f"Part A; {file=}")
+    print(f"\n**** Part A; {file=}")
+    data = parse_input(file)
 
 def part_b(file):
-    print(f"Part B; {file=}")
+    print(f"\n**** Part B; {file=}")
+    data = parse_input(file)
 
 if __name__ == "__main__":
     part_a("./test_input.txt")
