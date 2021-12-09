@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # Advent of Code 2021 - Day 9
 # https://adventofcode.com/2021/day/9
-import sys
-import heapq
-import math
+from sys import maxsize
+from heapq import nlargest
+from math import prod
 
 def parse_input(file):
     with open(file) as data:
@@ -13,7 +13,7 @@ def parse_input(file):
     for line in lines:
         out.append([int(x) for x in line])
 
-    # return 2d numpy array (pretty printing)
+    # return 2d array
     return out
 
 def find_low_points(data):
@@ -35,10 +35,10 @@ def find_low_points(data):
             curr = data[i][j]
 
             # Find the surrounding values. If out of bounds, set to sys.maxsize
-            left = data[i][j-1] if j-1 >= 0 else sys.maxsize
-            right = data[i][j+1] if j+1 < cols else sys.maxsize
-            up = data[i-1][j] if i-1 >= 0 else sys.maxsize
-            down = data[i+1][j] if i+1 < rows else sys.maxsize
+            left = data[i][j-1] if j-1 >= 0 else maxsize
+            right = data[i][j+1] if j+1 < cols else maxsize
+            up = data[i-1][j] if i-1 >= 0 else maxsize
+            down = data[i+1][j] if i+1 < rows else maxsize
 
             # Check if the current point is lower than all the surrounding points
             if curr < left and curr < right and curr < up and curr < down:
@@ -96,8 +96,8 @@ def part_b(file):
         basin_lengths.append(len(basin))
 
     # Determine the top three basin sizes and the product of those three.
-    top_three = heapq.nlargest(3, basin_lengths)
-    top_three_prod = math.prod(top_three)
+    top_three = nlargest(3, basin_lengths)
+    top_three_prod = prod(top_three)
     
     print(f"{top_three=} {top_three_prod=}")
 
